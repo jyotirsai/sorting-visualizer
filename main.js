@@ -19,15 +19,14 @@ function bubbleSort() {
   const arrays = document.getElementById("arrays");
   const children = arrays.children;
   for (let i = 0; i < children.length - 1; i++) {
-    height1 = Number(children[i].style.height.match(/(\d+)/)[0]);
-    height2 = Number(children[i + 1].style.height.match(/(\d+)/)[0]);
+    for (let j = 0; j < children.length - i - 1; j++) {
+      height1 = Number(children[j].style.height.match(/(\d+)/)[0]);
+      height2 = Number(children[j + 1].style.height.match(/(\d+)/)[0]);
 
-    if (height1 > height2) {
-      children[i].style.height = String(height2) + "px";
-      children[i + 1].style.height = String(height1) + "px";
+      if (height1 > height2) {
+        children[j].style.height = String(height2) + "px";
+        children[j + 1].style.height = String(height1) + "px";
+      }
     }
-  }
-  for (let i = 0; i < children.length; i++) {
-    console.log(children[i].style.height);
   }
 }
