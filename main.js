@@ -41,5 +41,29 @@ async function bubbleSort() {
 async function insertionSort() {
   const arrays = document.getElementById("arrays");
   const children = arrays.children;
-  for (let i = 0; i < children.length; i++) {}
+
+  for (let i = 1; i < children.length; i++) {
+    let j = i - 1; // j is the index of the previous element
+    let key = i;
+
+    while (
+      j >= 0 &&
+      Number(children[j].style.height.match(/(\d+)/)[0]) >
+        Number(children[key].style.height.match(/(\d+)/)[0])
+    ) {
+      children[j].style.background = "red";
+      height1 = Number(children[j].style.height.match(/(\d+)/)[0]);
+      height2 = Number(children[key].style.height.match(/(\d+)/)[0]);
+      //swap
+      children[key].style.height = String(height1) + "px";
+      children[j].style.height = String(height2) + "px";
+
+      await new Promise((resolve) => setTimeout(resolve, 1));
+      children[j].style.background = "black";
+      j--;
+      key--;
+    }
+  }
 }
+
+async function mergeSort() {}
