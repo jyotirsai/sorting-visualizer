@@ -42,4 +42,53 @@ class Algorithms {
       }
     }
   }
+
+  // Merge Sort
+  async MergeSort() {
+    await this.MergeSplit(this.rectangles);
+  }
+
+  async MergeSplit(array) {
+    if (array.length <= 1) {
+      return array;
+    }
+    let middle = Math.floor(array.length / 2);
+    let leftArr = [];
+    let rightArr = [];
+    for (let i = 0; i < middle; i++) {
+      leftArr.push(array[i]);
+    }
+    for (let i = middle; i < this.size; i++) {
+      rightArr.push(array[i]);
+    }
+
+    await this.MergeSplit(leftArr);
+    await this.MergeSplit(rightArr);
+    await this.Merge(leftArr, rightArr);
+  }
+
+  async Merge(leftArr, rightArr) {
+    let i = 1;
+    console.log(i++);
+  }
+
+  // Selection Sort
+  async SelectionSort() {
+    for (let i = 0; i < this.size; i++) {
+      let min = i;
+      for (let j = i + 1; j < this.size; j++) {
+        if (await this.helpers.compareElements(min, j)) {
+          min = j;
+        }
+      }
+      await this.helpers.setCurrent(i);
+      await this.helpers.setCurrent(min);
+
+      await new Promise((resolve) => setTimeout(resolve, 1)); // wait for animation
+
+      await this.helpers.swapElements(i, min);
+      await this.helpers.removeCurrent(i);
+      await this.helpers.removeCurrent(min);
+    }
+  }
 }

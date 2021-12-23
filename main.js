@@ -25,6 +25,16 @@ async function insertionSort() {
   await algorithms.InsertionSort();
 }
 
+async function mergeSort() {
+  let algorithms = new Algorithms();
+  await algorithms.MergeSort();
+}
+
+async function selectionSort() {
+  let algorithms = new Algorithms();
+  await algorithms.SelectionSort();
+}
+
 /*
 
 // Merge sort functions
