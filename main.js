@@ -1,69 +1,78 @@
-document.addEventListener("DOMContentLoaded", randomizeArray(), false);
+document.addEventListener("DOMContentLoaded", generateArray(), false); // Generate a random array when window loads
 
-function randomizeArray() {
-  const arrays = document.getElementById("arrays");
-  arrays.innerHTML = "";
+// Function to generate array of rectangles
+function generateArray() {
+  const arrays = document.getElementById("arrays"); // retrieve parent div of rectangles
+  arrays.innerHTML = ""; // clear any div children within arrays
 
   for (let i = 0; i < 50; i++) {
-    const arrays = document.getElementById("arrays");
-    const rectangle = document.createElement("div");
-    rectangle.id = "rectangle";
-    rectangle.classList.add("default");
-    const height = Math.floor(Math.random() * 500);
-    rectangle.style.height = height + "px";
-    arrays.appendChild(rectangle);
+    const rectangle = document.createElement("div"); // create a div element which will represent each rectangle
+    rectangle.id = "rectangle"; // set id
+    rectangle.classList.add("default"); // add css class
+    const height = Math.floor(Math.random() * 500); // generate random size for rectangle
+    rectangle.style.height = height + "px"; // add previously generated size to height properties of style
+    arrays.appendChild(rectangle); // add div to arrays parent div
   }
 }
 
 async function bubbleSort() {
-  const arrays = document.getElementById("arrays");
-  const children = arrays.children;
-  for (let i = 0; i < children.length - 1; i++) {
-    for (let j = 0; j < children.length - i - 1; j++) {
-      children[j].style.background = "red";
-      children[j + 1].style.background = "red";
-      height1 = Number(children[j].style.height.match(/(\d+)/)[0]);
-      height2 = Number(children[j + 1].style.height.match(/(\d+)/)[0]);
-
-      if (height1 > height2) {
-        children[j].style.height = String(height2) + "px";
-        children[j + 1].style.height = String(height1) + "px";
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, 1));
-
-      children[j].style.background = "black";
-      children[j + 1].style.background = "black";
-    }
-  }
+  let algorithms = new Algorithms();
+  await algorithms.BubbleSort();
 }
 
 async function insertionSort() {
+  let algorithms = new Algorithms();
+  await algorithms.InsertionSort();
+}
+
+/*
+
+// Merge sort functions
+async function setUpMergeSort() {
   const arrays = document.getElementById("arrays");
-  const children = arrays.children;
-
-  for (let i = 1; i < children.length; i++) {
-    let j = i - 1; // j is the index of the previous element
-    let key = i;
-
-    while (
-      j >= 0 &&
-      Number(children[j].style.height.match(/(\d+)/)[0]) >
-        Number(children[key].style.height.match(/(\d+)/)[0])
-    ) {
-      children[j].style.background = "red";
-      height1 = Number(children[j].style.height.match(/(\d+)/)[0]);
-      height2 = Number(children[key].style.height.match(/(\d+)/)[0]);
-      //swap
-      children[key].style.height = String(height1) + "px";
-      children[j].style.height = String(height2) + "px";
-
-      await new Promise((resolve) => setTimeout(resolve, 1));
-      children[j].style.background = "black";
-      j--;
-      key--;
-    }
+  const children = [...arrays.children];
+  let rectangleDivs = arrays.children;
+  let sorted = mergeSort(children);
+  let heights = [];
+  for (let i = 0; i < sorted.length; i++) {
+    heights.push(sorted[i].style.height);
+  }
+  for (let i = 0; i < heights.length; i++) {
+    rectangleDivs[i].style.height = heights[i];
   }
 }
 
-async function mergeSort() {}
+function mergeSort(array) {
+  if (array.length <= 1) {
+    return array;
+  }
+  const middle = Math.floor(array.length / 2);
+  const leftArr = array.splice(0, middle);
+  const rightArr = array;
+
+  // recursively call function to further split and sort arrays
+  return merge(mergeSort(leftArr), mergeSort(rightArr));
+}
+
+function merge(leftArr, rightArr) {
+  let sorted = [];
+
+  while (leftArr.length && rightArr.length) {
+    leftArr[0].style.background = "red";
+    rightArr[0].style.background = "red";
+    if (
+      Number(leftArr[0].style.height.match(/(\d+)/)[0]) <
+      Number(rightArr[0].style.height.match(/(\d+)/)[0])
+    ) {
+      leftArr[0].style.background = "black";
+      rightArr[0].style.background = "black";
+      sorted.push(leftArr.shift());
+    } else {
+      leftArr[0].style.background = "black";
+      rightArr[0].style.background = "black";
+      sorted.push(rightArr.shift());
+    }
+  }
+
+  return [...sorted, ...leftArr, ...rightArr];
+} */
