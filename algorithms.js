@@ -43,43 +43,17 @@ class Algorithms {
     }
   }
 
-  // Merge Sort
-  async MergeSort() {
-    await this.MergeSplit(this.rectangles);
-  }
-
-  async MergeSplit(array) {
-    if (array.length <= 1) {
-      return array;
-    }
-    let middle = Math.floor(array.length / 2);
-    let leftArr = [];
-    let rightArr = [];
-    for (let i = 0; i < middle; i++) {
-      leftArr.push(array[i]);
-    }
-    for (let i = middle; i < this.size; i++) {
-      rightArr.push(array[i]);
-    }
-
-    await this.MergeSplit(leftArr);
-    await this.MergeSplit(rightArr);
-    await this.Merge(leftArr, rightArr);
-  }
-
-  async Merge(leftArr, rightArr) {
-    let i = 1;
-    console.log(i++);
-  }
-
   // Selection Sort
   async SelectionSort() {
     for (let i = 0; i < this.size; i++) {
       let min = i;
       for (let j = i + 1; j < this.size; j++) {
+        await this.helpers.setCurrent(j);
+        await new Promise((resolve) => setTimeout(resolve, 1)); // wait for animation
         if (await this.helpers.compareElements(min, j)) {
           min = j;
         }
+        await this.helpers.removeCurrent(j);
       }
       await this.helpers.setCurrent(i);
       await this.helpers.setCurrent(min);
@@ -90,5 +64,72 @@ class Algorithms {
       await this.helpers.removeCurrent(i);
       await this.helpers.removeCurrent(min);
     }
+  }
+
+  // Merge Sort
+  async MergeSort() {
+    let start = 0;
+    let end = this.size - 1;
+    await this.MergeSplit(start, end);
+  }
+
+  async MergeSplit(start, end) {
+    if (start < end) {
+      let mid = Math.floor((start + end) / 2);
+      let leftArrStart = start;
+      let leftArrEnd = mid;
+      let rightArrStart = mid + 1;
+      let rightArrEnd = end;
+      await this.MergeSplit(start, mid);
+      await this.MergeSplit(mid + 1, end);
+      await this.Merge(leftArrStart, leftArrEnd, rightArrStart, rightArrEnd);
+    }
+  }
+
+  async Merge(leftArrStart, leftArrEnd, rightArrStart, rightArrEnd) {
+    let leftIndices = [];
+    let rightIndices = [];
+    let unsortedIndices = [];
+    for (let i = leftArrStart; i <= leftArrEnd; i++) {
+      unsortedIndices.push(i);
+      leftIndices.push(i);
+    }
+    for (let i = rightArrStart; i <= rightArrEnd; i++) {
+      unsortedIndices.push(i);
+      rightIndices.push(i);
+    }
+    let sortedIndices = [];
+    let leftIndex = 0,
+      rightIndex = 0;
+    while (leftIndex < leftIndices.length && rightIndex < rightIndices.length) {
+      if (
+        await this.helpers.compareElements(
+          rightIndices[rightIndex],
+          leftIndices[leftIndex]
+        )
+      ) {
+        sortedIndices.push(leftIndices[leftIndex]);
+        leftIndex++;
+      } else {
+        sortedIndices.push(rightIndices[rightIndex]);
+        rightIndex++;
+      }
+    }
+
+    if (leftIndices[leftIndex]) {
+      let leftovers = leftIndices.slice(leftIndex);
+      sortedIndices.push(...leftovers);
+    } else {
+      let leftovers = rightIndices.slice(rightIndex);
+      sortedIndices.push(...leftovers);
+    }
+
+    console.log("unsorted: ", unsortedIndices, "sorted: ", sortedIndices);
+    /*     for (let i = 0; i < unsortedIndices.length; i++) {
+      let newHeight = Number(
+        this.rectangles[sortedIndices[i]].style.height.match(/(\d+)/)[0]
+      );
+      this.rectangles[unsortedIndices[i]].style.height = newHeight + "px";
+    } */
   }
 }
