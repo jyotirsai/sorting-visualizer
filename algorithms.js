@@ -98,9 +98,9 @@ class Algorithms {
       unsortedIndices.push(i);
       rightIndices.push(i);
     }
+    let leftIndex = 0;
+    let rightIndex = 0;
     let sortedIndices = [];
-    let leftIndex = 0,
-      rightIndex = 0;
     while (leftIndex < leftIndices.length && rightIndex < rightIndices.length) {
       if (
         await this.helpers.compareElements(
@@ -116,20 +116,36 @@ class Algorithms {
       }
     }
 
-    if (leftIndices[leftIndex]) {
-      let leftovers = leftIndices.slice(leftIndex);
-      sortedIndices.push(...leftovers);
-    } else {
-      let leftovers = rightIndices.slice(rightIndex);
-      sortedIndices.push(...leftovers);
+    while (leftIndex < leftIndices.length) {
+      sortedIndices.push(leftIndices[leftIndex]);
+      leftIndex++;
+    }
+
+    while (rightIndex < rightIndices.length) {
+      sortedIndices.push(rightIndices[rightIndex]);
+      rightIndex++;
     }
 
     console.log("unsorted: ", unsortedIndices, "sorted: ", sortedIndices);
-    /*     for (let i = 0; i < unsortedIndices.length; i++) {
-      let newHeight = Number(
-        this.rectangles[sortedIndices[i]].style.height.match(/(\d+)/)[0]
+    let newHeights = [];
+    for (let i = 0; i < sortedIndices.length; i++) {
+      newHeights.push(
+        Number(this.rectangles[sortedIndices[i]].style.height.match(/(\d+)/)[0])
       );
-      this.rectangles[unsortedIndices[i]].style.height = newHeight + "px";
-    } */
+    }
+    for (let i = leftArrStart; i <= rightArrEnd; i++) {
+      this.helpers.setCurrent(i);
+    }
+    for (
+      let i = leftArrStart, current = 0;
+      i <= rightArrEnd && current < newHeights.length;
+      i++, current++
+    ) {
+      await new Promise((resolve) => setTimeout(resolve, 1)); // wait for animation
+      this.rectangles[i].style.height = newHeights[current] + "px";
+    }
+    for (let i = leftArrStart; i <= rightArrEnd; i++) {
+      this.helpers.removeCurrent(i);
+    }
   }
 }
