@@ -4,6 +4,7 @@ class Algorithms {
     this.rectangles = this.arrays.children; // rectangle divs inside arrays div
     this.size = this.rectangles.length; // number of rectangles
     this.helpers = new Helpers(this.rectangles); // helper functions
+    this.speed = document.getElementById("speed").value;
   }
 
   // Bubble Sort
@@ -16,7 +17,7 @@ class Algorithms {
           await this.helpers.swapElements(j, j + 1);
         }
 
-        await new Promise((resolve) => setTimeout(resolve, 1)); // wait for animation
+        await this.helpers.delay(this.speed);
 
         await this.helpers.removeCurrent(j);
         await this.helpers.removeCurrent(j + 1);
@@ -34,7 +35,7 @@ class Algorithms {
         await this.helpers.setCurrent(j);
         await this.helpers.swapElements(key, j);
 
-        await new Promise((resolve) => setTimeout(resolve, 1)); // wait for animation
+        await this.helpers.delay(this.speed);
 
         await this.helpers.removeCurrent(j);
         j--;
@@ -49,7 +50,7 @@ class Algorithms {
       let min = i;
       for (let j = i + 1; j < this.size; j++) {
         await this.helpers.setCurrent(j);
-        await new Promise((resolve) => setTimeout(resolve, 1)); // wait for animation
+        await this.helpers.delay(this.speed);
         if (await this.helpers.compareElements(min, j)) {
           min = j;
         }
@@ -58,7 +59,7 @@ class Algorithms {
       await this.helpers.setCurrent(i);
       await this.helpers.setCurrent(min);
 
-      await new Promise((resolve) => setTimeout(resolve, 1)); // wait for animation
+      await this.helpers.delay(this.speed);
 
       await this.helpers.swapElements(i, min);
       await this.helpers.removeCurrent(i);
@@ -89,13 +90,10 @@ class Algorithms {
   async Merge(leftArrStart, leftArrEnd, rightArrStart, rightArrEnd) {
     let leftIndices = [];
     let rightIndices = [];
-    let unsortedIndices = [];
     for (let i = leftArrStart; i <= leftArrEnd; i++) {
-      unsortedIndices.push(i);
       leftIndices.push(i);
     }
     for (let i = rightArrStart; i <= rightArrEnd; i++) {
-      unsortedIndices.push(i);
       rightIndices.push(i);
     }
     let leftIndex = 0;
@@ -108,25 +106,20 @@ class Algorithms {
           leftIndices[leftIndex]
         )
       ) {
-        sortedIndices.push(leftIndices[leftIndex]);
-        leftIndex++;
+        sortedIndices.push(leftIndices[leftIndex++]);
       } else {
-        sortedIndices.push(rightIndices[rightIndex]);
-        rightIndex++;
+        sortedIndices.push(rightIndices[rightIndex++]);
       }
     }
 
     while (leftIndex < leftIndices.length) {
-      sortedIndices.push(leftIndices[leftIndex]);
-      leftIndex++;
+      sortedIndices.push(leftIndices[leftIndex++]);
     }
 
     while (rightIndex < rightIndices.length) {
-      sortedIndices.push(rightIndices[rightIndex]);
-      rightIndex++;
+      sortedIndices.push(rightIndices[rightIndex++]);
     }
 
-    console.log("unsorted: ", unsortedIndices, "sorted: ", sortedIndices);
     let newHeights = [];
     for (let i = 0; i < sortedIndices.length; i++) {
       newHeights.push(
@@ -141,7 +134,7 @@ class Algorithms {
       i <= rightArrEnd && current < newHeights.length;
       i++, current++
     ) {
-      await new Promise((resolve) => setTimeout(resolve, 1)); // wait for animation
+      await this.helpers.delay(this.speed);
       this.rectangles[i].style.height = newHeights[current] + "px";
     }
     for (let i = leftArrStart; i <= rightArrEnd; i++) {
