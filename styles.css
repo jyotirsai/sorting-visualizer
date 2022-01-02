@@ -79,7 +79,7 @@ button {
   height: 500px;
   width: 900px;
   display: flex;
-  margin: 5px auto;
+  margin: 10px auto;
   justify-content: center;
   align-items: flex-end;
   border-radius: 25px;
@@ -153,6 +153,7 @@ footer {
   white-space: nowrap;
   will-change: box-shadow, transform;
   font-size: 18px;
+  margin-right: 25px;
 }
 
 .button-30:focus {
