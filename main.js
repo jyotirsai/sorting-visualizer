@@ -16,21 +16,45 @@ function generateArray() {
 }
 
 async function bubbleSort() {
+  await disableButtons();
   let algorithms = new Algorithms();
   await algorithms.BubbleSort();
+  await enableButtons();
 }
 
 async function insertionSort() {
+  await disableButtons();
   let algorithms = new Algorithms();
   await algorithms.InsertionSort();
+  await enableButtons();
 }
 
 async function selectionSort() {
+  await disableButtons();
   let algorithms = new Algorithms();
   await algorithms.SelectionSort();
+  await enableButtons();
 }
 
 async function mergeSort() {
+  await disableButtons();
   let algorithms = new Algorithms();
   await algorithms.MergeSort();
+  await enableButtons();
+}
+
+async function disableButtons() {
+  document.getElementById("arrayBtn").disabled = true;
+  document.getElementById("bubbleSortBtn").disabled = true;
+  document.getElementById("insertionSortBtn").disabled = true;
+  document.getElementById("selectionSortBtn").disabled = true;
+  document.getElementById("mergeSortBtn").disabled = true;
+}
+
+async function enableButtons() {
+  document.getElementById("arrayBtn").disabled = false;
+  document.getElementById("bubbleSortBtn").disabled = false;
+  document.getElementById("insertionSortBtn").disabled = false;
+  document.getElementById("selectionSortBtn").disabled = false;
+  document.getElementById("mergeSortBtn").disabled = false;
 }

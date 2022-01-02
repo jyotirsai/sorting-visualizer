@@ -9,22 +9,12 @@
   </head>
   <body>
     <header><h1>Sorting Visualizer</h1></header>
+
     <div class="inputs">
-      <div class="buttons">
-        <button onclick="generateArray()" class="button-29">
+      <div class="speedSelect">
+        <button onclick="generateArray()" class="button-30" id="arrayBtn">
           Generate Array
         </button>
-        <button onclick="bubbleSort()" class="button-29">Bubble Sort</button>
-        <button onclick="insertionSort()" class="button-29">
-          Insertion Sort
-        </button>
-        <button onclick="selectionSort()" class="button-29">
-          Selection Sort
-        </button>
-        <button onclick="mergeSort()" class="button-29">Merge Sort</button>
-      </div>
-
-      <div class="speedSelect">
         <p>Speed</p>
         <input
           type="range"
@@ -35,9 +25,33 @@
           id="speed"
         />
       </div>
+      <div class="buttons">
+        <button onclick="bubbleSort()" class="button-29" id="bubbleSortBtn">
+          Bubble Sort
+        </button>
+        <button
+          onclick="insertionSort()"
+          class="button-29"
+          id="insertionSortBtn"
+        >
+          Insertion Sort
+        </button>
+        <button
+          onclick="selectionSort()"
+          class="button-29"
+          id="selectionSortBtn"
+        >
+          Selection Sort
+        </button>
+        <button onclick="mergeSort()" class="button-29" id="mergeSortBtn">
+          Merge Sort
+        </button>
+      </div>
     </div>
     <div id="arrays"></div>
-    <footer>Made By <a href="https://jyotirsai.com">Jyotir Sai</a></footer>
+    <footer>
+      Made By <a href="https://jyotirsai.com" target="_blank">Jyotir Sai</a>
+    </footer>
     <script src="./main.js" async defer></script>
     <script src="./algorithms.js" async defer></script>
     <script src="./helpers.js" async defer></script>
