@@ -6,4 +6,6 @@ Check out the live website <a href="https://upbeat-golick-77a6b1.netlify.app/" t
 
 Dragging the time slider to the right slows down the animation.
 
+Generate Array button will generate a randomized set of rectangles with different heights.
+
 <img src="sort.png"/>
