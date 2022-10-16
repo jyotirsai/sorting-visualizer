@@ -4,4 +4,6 @@ A visualization of 4 different sorting algorithms made with JavaScript! Algorith
 
 Check out the live website <a href="https://upbeat-golick-77a6b1.netlify.app/" target="_blank">here!</a>
 
+Dragging the time slider to the right slows down the animation.
+
 <img src="sort.png"/>
